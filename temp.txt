@@ -1,0 +1,68 @@
+import { CoursesTutorials } from "@/components/assects/constant";
+import Footer from "@/components/Footer";
+import Header from "@/components/Header";
+import Link from "next/link";
+
+export default async function page({ params }) {
+  let isUrl;
+  let content;
+  const { course } = await params;
+  console.log(course);
+  if (course === "java") {
+    content = CoursesTutorials.find((element) => {
+      element.name === "Java";
+      isUrl = true;
+      return element;
+    });
+    console.log(content);
+  } else if (course === "python") {
+    content = CoursesTutorials.find((element) => {
+      element.name === "Python";
+      if (element.name === "Python") {
+        console.log(` find method 2 ${element.name}`);
+        isUrl = true;
+        return element;
+      }
+    });
+    console.log(content);
+  } else if (course === "web-development") {
+    content = CoursesTutorials.find((element) => {
+      element.name === "Web Development";
+      if (element.name === "Web Development") {
+        isUrl = true;
+        return element;
+      }
+    });
+    console.log(content);
+  } else {
+    isUrl = false;
+  }
+  console.log(` the content is ${content}`);
+  return (
+    <>
+      <Header />
+      <div>
+        {isUrl ? (
+          <>
+            <h1>{content.name}</h1>
+            <div className="container">
+              <div className="video">video here</div>
+              <div className="headings">
+                {content.headings.map((heading, key) => (
+                  <button key={key}>
+                    <Link href={heading.link}>{heading.name}</Link>
+                  </button>
+                ))}
+              </div>
+            </div>
+          </>
+        ) : (
+          <>
+          <h1>page not found</h1>
+          </>
+        )}
+      </div>
+      <Footer />
+    </>
+  );
+}

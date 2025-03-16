@@ -1,9 +1,12 @@
+"use client"
 import { Courses } from "@/components/assects/constant";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 const page = () => {
+  const router = useRouter();
   return (
     <div>
       <Header />
@@ -28,7 +31,7 @@ const page = () => {
                 <div className="content">
                   <h3>{course.name}</h3>
                   <p>{course.description}</p>
-                  <button className="btn">Learn More</button>
+                  <button className="btn" onClick={()=> router.push(`/courses/${course.link}`)}>Learn More</button>
                 </div>
               </div>
             ))}
@@ -39,5 +42,4 @@ const page = () => {
     </div>
   );
 };
-
 export default page;
